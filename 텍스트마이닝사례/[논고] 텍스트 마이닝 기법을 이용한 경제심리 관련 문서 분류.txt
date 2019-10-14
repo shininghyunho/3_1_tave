@@ -1,0 +1,53 @@
+텍스트 마이닝
+
+정형적인 형태를 갖는 수치형 데이터에비해 분석이 어려움
+텍스트를 벡터로 표현
+
+문서분류
+군집화
+정보검색
+정보추출
+감성 분석
+
+1.전처리
+토큰화 - 한글은 조사나 어근,어미 띄어쓰기로 인해 변수가 많음
+정규화 - 했다 와 했었다를 하다로 치환해서 해석
+품사 태깅 (part of speech tagging) - 품사가 어떤 형태로 쓰였는지 (다 : 모두, ~다)
+
+Konlpy, twitter로 분석가능, Sonlpy도 가능
+
+2.토큰의 수치형 자료로의 표현 방법
+bag-of-word - 단어의 빈도수를 기반으로 관계파악해서 인덱스 부여
+	인덱스로 표현하니 벡터자체가 parse함
+	PMI(pointwise mutual information)
+	코사인유사도 사용 -> 단순한 빈도로는 유사도 판단 힘듦
+word embedding
+	LSA
+	word2vec - 같은 문맥에서 사용되었는지에 따라 코사인 유사도 상승
+	문서를 주제별로 나눌때 효율적
+
+단어의 유사성 학습
+	3개의 유사한 단어와 1개의 다른 단어로 학습 -> 일부는 잘 안맞을수도
+	analogy : A:a = B:b 관계에서 b를 찾는 학습 -> b의 후보군이 많음
+	gensim 패키지의 most_similar 명령문을 사용해 유사도 파악
+	word2vec은 문맥에서 같이 쓰이면 유사하게 판단해서 상승과 하락을 비슷하게 채점
+	동음이의어를 골라내기가 힘듦(경기 - 경제용어, 운동경기)
+	동음이읭어는 분류에 영향을 많이 줌
+	
+지도학습
+	linear regression, SVM, decision tree, random forest, boosting, nerual network
+	
+평가
+	TP,FP,FN,TN 표 - accuracy, precision sensitivity(recall),  specificity
+	AUC(area under curve)
+	
+	linear regression을 사용했을때
+	bag of word의 dimesion을 많이 높이고 adaboost 방식을 사용해도
+	word2vec의 성능이 좋았음
+
+시사점
+	word2vec은 완전 무결하지 않음 (ex 같은 문맥이면 비슷하게 채점)
+
+내 생각
+	TF-IDF, 다른 학습방법으로 정확도 상승 시킬 수 있지 않을까?
+	또는 scikit-learn의 classifier를 써도 좋을거 같다.
